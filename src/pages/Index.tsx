@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/ProjectCard";
+import Navbar from "@/components/Navbar";
 import { ArrowRight, Mail, Instagram, Linkedin } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 import project1 from "@/assets/project-1.jpg";
@@ -21,8 +22,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
@@ -41,6 +44,7 @@ const Index = () => {
             size="lg" 
             className="group bg-primary text-primary-foreground hover:bg-primary/90 animate-fade-up" 
             style={{ animationDelay: "0.2s" }}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
           >
             View Projects
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -49,7 +53,7 @@ const Index = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-24 px-4">
+      <section id="projects" className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Selected Works</h2>
@@ -70,7 +74,7 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-4 bg-secondary">
+      <section id="about" className="py-24 px-4 bg-secondary">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">About</h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
@@ -86,7 +90,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 px-4">
+      <section id="contact" className="py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">Get In Touch</h2>
           <p className="text-lg text-muted-foreground mb-12">
