@@ -12,12 +12,66 @@ import project6 from "@/assets/project-6.jpg";
 
 const Index = () => {
   const projects = [
-    { id: 1, image: project1, title: "Abstract Expressions", category: "Painting" },
-    { id: 2, image: project2, title: "Minimal Forms", category: "Sculpture" },
-    { id: 3, image: project3, title: "Digital Dreams", category: "Digital Art" },
-    { id: 4, image: project4, title: "Mixed Media", category: "Contemporary" },
-    { id: 5, image: project5, title: "Light & Shadow", category: "Installation" },
-    { id: 6, image: project6, title: "Color Theory", category: "Painting" },
+    { 
+      id: 1, 
+      image: project1, 
+      title: "Abstract Expressions", 
+      category: "Painting",
+      description: "A bold exploration of color and form through abstract expressionism.",
+      year: "2024",
+      medium: "Acrylic on Canvas",
+      dimensions: "48 x 36 inches"
+    },
+    { 
+      id: 2, 
+      image: project2, 
+      title: "Minimal Forms", 
+      category: "Sculpture",
+      description: "Clean lines and geometric shapes define this minimalist sculpture series.",
+      year: "2023",
+      medium: "Bronze",
+      dimensions: "24 x 12 x 8 inches"
+    },
+    { 
+      id: 3, 
+      image: project3, 
+      title: "Digital Dreams", 
+      category: "Digital Art",
+      description: "An immersive digital artwork exploring virtual landscapes and surreal imagery.",
+      year: "2024",
+      medium: "Digital Mixed Media",
+      dimensions: "Variable (Digital)"
+    },
+    { 
+      id: 4, 
+      image: project4, 
+      title: "Mixed Media", 
+      category: "Contemporary",
+      description: "Combining traditional and modern techniques in a contemporary composition.",
+      year: "2023",
+      medium: "Mixed Media on Wood",
+      dimensions: "36 x 36 inches"
+    },
+    { 
+      id: 5, 
+      image: project5, 
+      title: "Light & Shadow", 
+      category: "Installation",
+      description: "An interactive installation piece playing with natural and artificial light.",
+      year: "2024",
+      medium: "Installation Art",
+      dimensions: "Site-specific"
+    },
+    { 
+      id: 6, 
+      image: project6, 
+      title: "Color Theory", 
+      category: "Painting",
+      description: "A vibrant study in color relationships and visual harmony.",
+      year: "2023",
+      medium: "Oil on Canvas",
+      dimensions: "60 x 40 inches"
+    },
   ];
 
   return (
@@ -64,6 +118,7 @@ const Index = () => {
             {projects.map((project) => (
               <ProjectCard
                 key={project.id}
+                id={project.id}
                 image={project.image}
                 title={project.title}
                 category={project.category}

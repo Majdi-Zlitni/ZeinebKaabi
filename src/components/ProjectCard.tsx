@@ -1,14 +1,17 @@
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
+  id: number;
   image: string;
   title: string;
   category: string;
 }
 
-const ProjectCard = ({ image, title, category }: ProjectCardProps) => {
+const ProjectCard = ({ id, image, title, category }: ProjectCardProps) => {
   return (
-    <Card className="group relative overflow-hidden border-border bg-card transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20">
+    <Link to={`/project/${id}`}>
+      <Card className="group relative overflow-hidden border-border bg-card transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20 cursor-pointer">
       <div className="aspect-square overflow-hidden">
         <img 
           src={image} 
@@ -23,6 +26,7 @@ const ProjectCard = ({ image, title, category }: ProjectCardProps) => {
         </div>
       </div>
     </Card>
+    </Link>
   );
 };
 
