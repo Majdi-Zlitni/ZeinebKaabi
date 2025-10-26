@@ -2,6 +2,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -16,7 +23,7 @@ const ProjectDetail = () => {
   const projects = [
     { 
       id: 1, 
-      image: project1, 
+      images: [project1, project2, project3], 
       title: "Abstract Expressions", 
       category: "Painting",
       description: "A bold exploration of color and form through abstract expressionism. This piece represents a journey into the subconscious, where emotions translate directly onto canvas through spontaneous brushstrokes and vibrant color choices.",
@@ -27,7 +34,7 @@ const ProjectDetail = () => {
     },
     { 
       id: 2, 
-      image: project2, 
+      images: [project2, project4, project1], 
       title: "Minimal Forms", 
       category: "Sculpture",
       description: "Clean lines and geometric shapes define this minimalist sculpture series. The work explores the essence of form by stripping away all unnecessary elements.",
@@ -38,7 +45,7 @@ const ProjectDetail = () => {
     },
     { 
       id: 3, 
-      image: project3, 
+      images: [project3, project5, project2], 
       title: "Digital Dreams", 
       category: "Digital Art",
       description: "An immersive digital artwork exploring virtual landscapes and surreal imagery. This piece blurs the boundaries between reality and digital fantasy.",
@@ -49,7 +56,7 @@ const ProjectDetail = () => {
     },
     { 
       id: 4, 
-      image: project4, 
+      images: [project4, project6, project3], 
       title: "Mixed Media", 
       category: "Contemporary",
       description: "Combining traditional and modern techniques in a contemporary composition. This work bridges the gap between classical art-making and modern innovation.",
@@ -60,7 +67,7 @@ const ProjectDetail = () => {
     },
     { 
       id: 5, 
-      image: project5, 
+      images: [project5, project1, project4], 
       title: "Light & Shadow", 
       category: "Installation",
       description: "An interactive installation piece playing with natural and artificial light. Viewers become part of the artwork as their shadows interact with projected patterns.",
@@ -71,7 +78,7 @@ const ProjectDetail = () => {
     },
     { 
       id: 6, 
-      image: project6, 
+      images: [project6, project2, project5], 
       title: "Color Theory", 
       category: "Painting",
       description: "A vibrant study in color relationships and visual harmony. This piece demonstrates the emotional power of complementary colors working in dynamic tension.",
@@ -117,13 +124,25 @@ const ProjectDetail = () => {
           </Button>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Project Image */}
-            <div className="relative overflow-hidden rounded-lg">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-auto object-cover"
-              />
+            {/* Project Images Carousel */}
+            <div className="relative">
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {project.images.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img 
+                          src={image} 
+                          alt={`${project.title} - Image ${index + 1}`}
+                          className="w-full h-auto object-cover"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-4" />
+                <CarouselNext className="right-4" />
+              </Carousel>
             </div>
 
             {/* Project Info */}

@@ -14,7 +14,7 @@ const Index = () => {
   const projects = [
     { 
       id: 1, 
-      image: project1, 
+      images: [project1, project2, project3], 
       title: "Abstract Expressions", 
       category: "Painting",
       description: "A bold exploration of color and form through abstract expressionism.",
@@ -24,7 +24,7 @@ const Index = () => {
     },
     { 
       id: 2, 
-      image: project2, 
+      images: [project2, project4, project1], 
       title: "Minimal Forms", 
       category: "Sculpture",
       description: "Clean lines and geometric shapes define this minimalist sculpture series.",
@@ -34,7 +34,7 @@ const Index = () => {
     },
     { 
       id: 3, 
-      image: project3, 
+      images: [project3, project5, project2], 
       title: "Digital Dreams", 
       category: "Digital Art",
       description: "An immersive digital artwork exploring virtual landscapes and surreal imagery.",
@@ -44,7 +44,7 @@ const Index = () => {
     },
     { 
       id: 4, 
-      image: project4, 
+      images: [project4, project6, project3], 
       title: "Mixed Media", 
       category: "Contemporary",
       description: "Combining traditional and modern techniques in a contemporary composition.",
@@ -54,7 +54,7 @@ const Index = () => {
     },
     { 
       id: 5, 
-      image: project5, 
+      images: [project5, project1, project4], 
       title: "Light & Shadow", 
       category: "Installation",
       description: "An interactive installation piece playing with natural and artificial light.",
@@ -64,7 +64,7 @@ const Index = () => {
     },
     { 
       id: 6, 
-      image: project6, 
+      images: [project6, project2, project5], 
       title: "Color Theory", 
       category: "Painting",
       description: "A vibrant study in color relationships and visual harmony.",
@@ -119,7 +119,7 @@ const Index = () => {
               <ProjectCard
                 key={project.id}
                 id={project.id}
-                image={project.image}
+                images={project.images}
                 title={project.title}
                 category={project.category}
               />
