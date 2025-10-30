@@ -1,32 +1,78 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; 
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    // 1. SCROLL LISTENER: Handles background change on scroll
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
+    // 2. HASH SCROLL HANDLER: Executes scrolling on page load/navigation if a hash exists
+    const handleHashScroll = () => {
+      if (location.hash) {
+        // Get the ID (remove the leading '#')
+        const targetId = location.hash.substring(1); 
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+          // Use a slight delay to ensure the DOM is fully ready after navigation
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: "smooth" });
+          }, 0); 
+        }
+      } else if (location.pathname === '/' && window.scrollY !== 0) {
+        // Optional: If navigating back to home without a hash, scroll to top
+        window.scrollTo(0, 0);
+      }
+    };
+    
+    // Execute hash scroll logic immediately on mount and on location change
+    handleHashScroll(); 
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location]); // Re-run effect when location changes (i.e., when navigating)
+
+  // Handler for navigation
+  const handleNavClick = (target: string) => {
+    setIsMobileMenuOpen(false); 
+
+    // If target is a full route path (like /cv), navigate directly
+    if (target.startsWith('/')) {
+      navigate(target);
+      return;
+    }
+
+    // Handle internal section scrolling (Home, Projects, Biography, Contact)
+    const targetHash = `#${target}`;
+    
+    if (location.pathname === '/') {
+      // If already on homepage, update hash and let the useEffect handle the scroll
+      // NOTE: Using replace is better for anchors to avoid cluttering history
+      navigate(targetHash, { replace: true });
+    } else {
+      // If on a detail page, navigate to the homepage root with the hash.
+      // The updated useEffect hook will handle the scrolling upon landing.
+      navigate(`/${targetHash}`);
     }
   };
 
   const navItems = [
-    { label: "Home", section: "home" },
-    { label: "Projects", section: "projects" },
-    { label: "About", section: "about" },
-    { label: "Contact", section: "contact" },
+    { label: "Home", target: "home" },
+    { label: "Projects", target: "projects" },
+    { label: "CV", target: "/cv" }, 
+    { label: "Publications", target: "/publications" },
+    { label: "Biography", target: "about" },
+    { label: "Contact", target: "contact" },
   ];
 
   return (
@@ -41,18 +87,18 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <button
-            onClick={() => scrollToSection("home")}
+            onClick={() => handleNavClick("home")}
             className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            Artist<span className="text-primary">.</span>
+            Zeineb Kaabi<span className="text-primary">.</span>
           </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <button
-                key={item.section}
-                onClick={() => scrollToSection(item.section)}
+                key={item.target}
+                onClick={() => handleNavClick(item.target)}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {item.label}
@@ -81,8 +127,8 @@ const Navbar = () => {
             <div className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <button
-                  key={item.section}
-                  onClick={() => scrollToSection(item.section)}
+                  key={item.target}
+                  onClick={() => handleNavClick(item.target)}
                   className="text-foreground hover:text-primary transition-colors font-medium text-left py-2"
                 >
                   {item.label}
